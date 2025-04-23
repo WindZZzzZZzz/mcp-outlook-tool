@@ -35,7 +35,7 @@ class Graph:
         graph_scopes = self.settings['GRAPH_USER_SCOPES'].split(',')
         access_token = self.device_code_credential.get_token(graph_scopes)
         return access_token.token
-    
+
     async def get_user(self):
         # Only request specific properties using $select
         query_params = UserItemRequestBuilder.UserItemRequestBuilderGetQueryParameters(
@@ -48,7 +48,7 @@ class Graph:
 
         user = await self.user_client.me.get(request_configuration=request_config)
         return user
-    
+
     async def get_inbox(self, size: int = 25):
         query_params = MessagesRequestBuilder.MessagesRequestBuilderGetQueryParameters(
             # Only request specific properties
@@ -65,7 +65,7 @@ class Graph:
         messages = await self.user_client.me.mail_folders.by_mail_folder_id('inbox').messages.get(
                 request_configuration=request_config)
         return messages
-    
+
     async def send_mail(self, subject: str, body: str, recipient: str):
         message = Message()
         message.subject = subject
